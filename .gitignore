@@ -1,0 +1,16 @@
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+*.jar
+!deploy/*.example
+*.class
+*.log
+*.iml
+.idea/
+.vscode/
+.DS_Store
+uploads/
+/opt/
+
+# 生产配置若含真实密码，不要提交（根目录或 deploy 下的）
+/application-prod.yml
+deploy/application-prod.yml

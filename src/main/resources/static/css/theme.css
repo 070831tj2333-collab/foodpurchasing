@@ -1,0 +1,106 @@
+/* 校园食品站 - 红黄主色调 */
+
+:root {
+  --theme-red: #c41e3a;
+  --theme-red-dark: #9e1830;
+  --theme-yellow: #ffc107;
+  --theme-yellow-light: #fff3cd;
+  --theme-yellow-dark: #e0a800;
+}
+
+/* 导航栏：红色底、黄色/白色文字 */
+.navbar.bg-dark,
+.navbar.navbar-dark {
+  background-color: var(--theme-red) !important;
+  border-bottom: 3px solid var(--theme-yellow);
+}
+.navbar .navbar-brand,
+.navbar .nav-link {
+  color: #fff !important;
+}
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+  color: var(--theme-yellow) !important;
+}
+.navbar .btn-outline-light {
+  color: #fff;
+  border-color: var(--theme-yellow);
+}
+.navbar .btn-outline-light:hover {
+  background-color: var(--theme-yellow);
+  color: var(--theme-red);
+  border-color: var(--theme-yellow);
+}
+
+/* 主按钮：红色 */
+.btn-primary {
+  background-color: var(--theme-red);
+  border-color: var(--theme-red);
+}
+.btn-primary:hover {
+  background-color: var(--theme-red-dark);
+  border-color: var(--theme-red-dark);
+}
+
+/* 成功/次要按钮：黄色 */
+.btn-success {
+  background-color: var(--theme-yellow);
+  border-color: var(--theme-yellow-dark);
+  color: #333;
+}
+.btn-success:hover {
+  background-color: var(--theme-yellow-dark);
+  border-color: #d39e00;
+  color: #333;
+}
+
+/* 公告框：浅黄底、红边框 */
+.alert-info {
+  background-color: var(--theme-yellow-light);
+  border-color: var(--theme-yellow);
+  color: #856404;
+}
+.alert-info .alert-heading {
+  color: var(--theme-red);
+}
+
+/* 链接与标题强调色 */
+a {
+  color: var(--theme-red);
+}
+a:hover {
+  color: var(--theme-red-dark);
+}
+.text-primary {
+  color: var(--theme-red) !important;
+}
+.text-success {
+  color: #b8860b !important;
+}
+
+/* 卡片边框/焦点 */
+.card {
+  border-color: rgba(196, 30, 58, 0.2);
+}
+.card-header {
+  background-color: rgba(255, 193, 7, 0.2);
+  border-bottom-color: var(--theme-yellow);
+}
+
+/* 分页 */
+.pagination .page-link {
+  color: var(--theme-red);
+}
+.pagination .page-item.active .page-link {
+  background-color: var(--theme-red);
+  border-color: var(--theme-red);
+}
+.pagination .page-link:hover {
+  color: var(--theme-red-dark);
+  background-color: var(--theme-yellow-light);
+}
+
+/* 表格强调 */
+.table-hover tbody tr:hover {
+  background-color: var(--theme-yellow-light);
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>学生管理</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+          crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/theme.css}" href="/css/theme.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">校园食品管理后台</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/admin/students">学生管理</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/foods">食品管理</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/announcements">公告管理</a>
+                </li>
+            </ul>
+            <a class="btn btn-outline-light btn-sm" href="/logout">退出登录</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>学生列表</h2>
+        <div>
+            <a class="btn btn-success" href="/admin/students/export">导出 Excel</a>
+        </div>
+    </div>
+
+    <form class="row mb-3" method="get" action="/admin/students">
+        <div class="col-md-4">
+            <input type="text" class="form-control" name="keyword" placeholder="搜索姓名/班级/账号/手机号"
+                   th:value="${keyword}">
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-primary" type="submit">搜索</button>
+        </div>
+    </form>
+
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th>账号名</th>
+            <th>姓名</th>
+            <th>班级</th>
+            <th>手机号</th>
+            <th>余额（元）</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="stu : ${page.content}">
+            <td th:text="${stu.username}">abcd</td>
+            <td th:text="${stu.name}">张三</td>
+            <td th:text="${stu.clazz}">高一(1)班</td>
+            <td th:text="${stu.phone}">138****8888</td>
+            <td th:text="${#numbers.formatDecimal(stu.balance, 1, 2)}">0.00</td>
+            <td>
+                <form th:action="@{'/admin/students/' + ${stu.id} + '/balance'}" method="post" class="d-flex">
+                    <input type="hidden" name="page" th:value="${page.number}">
+                    <input type="hidden" name="keyword" th:value="${keyword}">
+                    <input type="number" step="0.01" min="0" name="balance"
+                           class="form-control form-control-sm me-2"
+                           th:placeholder="${stu.balance}">
+                    <button class="btn btn-sm btn-primary" type="submit">保存</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <nav th:if="${page.totalPages > 1}">
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${page.first} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{/admin/students(page=${page.number - 1}, keyword=${keyword})}">上一页</a>
+            </li>
+            <li class="page-item disabled">
+                <span class="page-link" th:text="${page.number + 1} + ' / ' + ${page.totalPages}">1 / 1</span>
+            </li>
+            <li class="page-item" th:classappend="${page.last} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{/admin/students(page=${page.number + 1}, keyword=${keyword})}">下一页</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+</body>
+</html>
+

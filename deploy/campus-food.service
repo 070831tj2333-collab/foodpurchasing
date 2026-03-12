@@ -1,0 +1,19 @@
+# systemd 服务文件
+# 安装：sudo cp deploy/campus-food.service /etc/systemd/system/
+# 然后编辑 /etc/systemd/system/campus-food.service，把 YourUser 改成运行该服务的系统用户名
+# 启用：sudo systemctl daemon-reload && sudo systemctl enable campus-food && sudo systemctl start campus-food
+
+[Unit]
+Description=Campus Food 校园食品交易网站
+After=network.target mysql.service
+
+[Service]
+Type=simple
+User=YourUser
+WorkingDirectory=/opt/campus-food
+ExecStart=/usr/bin/java -jar /opt/campus-food/campus-food.jar --spring.profiles.active=prod --spring.config.additional-location=file:/opt/campus-food/application-prod.yml
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

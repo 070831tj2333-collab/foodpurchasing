@@ -1,0 +1,28 @@
+# 生产环境配置示例
+# 使用步骤：
+# 1. 复制到服务器：cp deploy/application-prod.yml.example /opt/campus-food/application-prod.yml
+# 2. 编辑 /opt/campus-food/application-prod.yml，修改 MySQL 密码和 upload-dir（若路径不同）
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/campus_food?useSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=utf-8
+    username: campus_food
+    password: 你的MySQL密码
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+  thymeleaf:
+    cache: true
+
+server:
+  port: 8080
+
+logging:
+  level:
+    root: WARN
+    com.campus: INFO
+
+app:
+  upload-dir: /opt/campus-food/uploads/foods

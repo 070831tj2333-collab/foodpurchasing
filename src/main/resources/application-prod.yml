@@ -1,0 +1,31 @@
+# 生产环境配置（上线时使用）
+# 使用方式：java -jar app.jar --spring.profiles.active=prod
+# 请将下方 MySQL 密码改为你的实际密码
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/campus_food?useSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=utf-8
+    username: campus_food
+    password: 请修改为你的MySQL密码
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+  thymeleaf:
+    cache: true
+
+server:
+  port: 8080
+
+logging:
+  level:
+    root: WARN
+    com.campus: INFO
+
+app:
+  # 生产环境请改为服务器上的绝对路径，例如：/opt/campus-food/uploads/foods
+  upload-dir: /opt/campus-food/uploads/foods
