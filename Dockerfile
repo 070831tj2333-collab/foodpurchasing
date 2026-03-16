@@ -5,12 +5,11 @@ FROM maven:3.9.9-eclipse-temurin-17 AS build
 
 WORKDIR /app
 
-# Copy pom and wrapper first for better layer caching
-COPY pom.xml mvnw ./
-COPY .mvn .mvn
+# Copy pom first for better layer caching
+COPY pom.xml ./
 
 # Pre-fetch dependencies (optional but speeds up subsequent builds)
-RUN chmod +x mvnw && ./mvnw -q dependency:go-offline -DskipTests
+RUN mvn -q dependency:go-offline -DskipTests
 
 # Copy the rest of the source code
 COPY src src
@@ -18,7 +17,7 @@ COPY deploy deploy
 COPY run.sh run.sh
 
 # Build the application jar
-RUN ./mvnw clean package -DskipTests
+RUN mvn clean package -DskipTests
 
 # ====== Runtime stage ======
 FROM eclipse-temurin:17-jre-jammy
